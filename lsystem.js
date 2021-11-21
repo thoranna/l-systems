@@ -7,23 +7,34 @@ let weight;
 let angle;
 
 let choices = [];
+let colors = [[24, 32, 96],
+             [32, 74, 158], 
+             [43, 152, 211],
+             [161, 214, 232], 
+             [237, 156, 77], 
+             [161, 37, 54]]
 
+// refactoring done
 choices[0] = {
   a: "F",
-  b: "FF-[-F+F+F]+[+F-F-F]",
-  angle: 22.5,
+  b: "FF-[-F+F-F]+F[+F-F-F]",
+  angle: 23.5,
   n: 4,
-  len: 105,
+  len: 40,
   weight: 2 
 }
+
+// refactoring done 
 choices[1] = {
   a: "F",
-  b: "F[+F]F[-F]F",
+  b: "F[+FF]F[F-F]F",
   angle: 25.7,
   n: 5,
-  len: 60, 
-  weight: 5
+  len: 40, 
+  weight: 2
 }
+
+// refactoring done
 choices[2] = {
   a: "F",
   b: "F[+F]F[-F][F]",
@@ -33,40 +44,44 @@ choices[2] = {
   weight: 2
 }
 
+// refactoring done
 choices[3] = {
   a: "F",
   b: "FF",
   c: "X",
-  d: "F[+X]F[-X]+X",
-  angle: 20,
+  d: "F[-X]F[+X]F[-X]F[-F]F+X",
+  angle: 22,
   n: 7,
-  len: 130,
-  weight: 4
+  len: 80,
+  weight: 2
 }
+
+// refactoring
 choices[4] = {
   a: "F",
   b: "FF",
   c: "X",
-  d: "F[+X]F[-X]FX",
+  d: "FF[+X]F[-X]FX",
   angle: 25.7,
-  n: 7, 
-  len: 110, 
-  weight: 4
+  n: 6, 
+  len: 90, 
+  weight: 2
 }
 
+// refactoring done
 choices[5] = {
   a: "F",
   b: "FF",
   c: "X",
-  d: "F-[[X]+X]+F[+FX]-X",
-  angle: 22.5,
+  d: "FF-[[X]+X]+F[+FX]FF-X",
+  angle: 25.5,
   n: 6,
-  len: 120, 
-  weight: 3
+  len: 80, 
+  weight: 2
 }
 
 let rules = [];
-rules[0] = choices[1];
+rules[0] = choices[4];
 len = rules[0].len;
 weight = rules[0].weight;
 
@@ -97,15 +112,24 @@ function generate() {
 }
 
 function turtle() {
-  background(70, 120, 150);
-  stroke(255,100);
+  let f = round(random(0, 5));
+  background(colors[f][0], colors[f][1], colors[f][2]);
+  let c = random(0, 1);
+  stroke(51);
   resetMatrix();
   translate(width/2, height);
   for (let i=0; i < sentence.length; i++){
     let current = sentence.charAt(i);
     if (current == "F") {
       strokeWeight(weight);
-      line(0,0,0, -len);
+      let g = round(random(0, 5));
+      stroke(colors[g][0], colors[g][1], colors[g][2]);
+      // let r = random(0, 12);
+      ellipse(0, -len, 1, 2);
+      // line(0,0,0, -len);
+     //  stroke(70, 70);
+      // ellipse(0, -len, 3);
+      // stroke(70, 70);
       translate(0, -len);
     }
     else if (current == "X"){
@@ -121,6 +145,11 @@ function turtle() {
       push();
     }
     else if (current == "]") {
+      let h = round(random(0, 5));
+      stroke(colors[h][0], colors[h][1], colors[h][2]);
+      fill(colors[h][0], colors[h][1], colors[h][2])
+      let r = round(random(0, 3));
+      ellipse(0, -len, 1 + r, 2);
       pop();
     }
   }
@@ -134,6 +163,7 @@ function setup() {
   for (var i = 0; i < rules[0].n; i++) {
     generate();
   }
+  noLoop();
   save(cnv, 'lsystem_colored.jpg');
   // var button = createButton("generate");
   // button.mousePressed(generate);
