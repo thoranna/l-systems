@@ -1,6 +1,6 @@
-# L-Systems
+# Trees and plants generated with L-Systems
 
-Some examples: 
+Written in p5 using 6 different rulesets. The rulesets are inspired by those available in chapter 1.6.3 in the book Algorithmic Botany of Plants published by Dr. P. Prusinkiewicz. Some examples: 
 
 ![lsystem_colored (22)](https://user-images.githubusercontent.com/54947763/142782669-659c0b6e-d36f-4956-9b62-44fdbd33a61f.jpg)
 
